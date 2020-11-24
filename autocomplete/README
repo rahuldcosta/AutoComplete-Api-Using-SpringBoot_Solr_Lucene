@@ -1,0 +1,27 @@
+Pre-Requisite
+Solr Image of Docker must be up and running on same machine at port 8983. Without solr auto Complete will not work.
+If solr is started on another machine please change the host url under application.properties for solr host.
+Solr Version :- solr-8.5.2
+Instruction to setup solr in Docker
+1. Type docker run --name my_solr -d -p 8983:8983 -t solr   to create a solr iamge from official Solr image.
+2.Type docker exec -it --user=solr my_solr bin/solr create_collection -c Course
+
+Instructions to Run the Autocomplete Application
+1. Type mvn clean install and see that the build is Successful.
+2. Open CMD and check docker --version to see if docker is installed correctly
+3. Type docker build -t courseautocomplete .    to Build the docker image
+4. Type docker run -p8080:8080 courseautocomplete
+5. Using a WebBrowser visit URL http://localhost:8080/ this will show you the Home Page
+6. Use the Postman Collection file AutoComplete.postman_collection.json to easily fire Requests CRUD.
+
+Curl Command
+curl http://localhost:8080/course/search/name/jav
+
+Indexed Document Structure
+{
+    "courseId": 1,
+    "courseName": "Java P",
+    "courseDescription": "Intro",
+    "instructorName": "Terry",
+    "gradeLevel": 1
+}
